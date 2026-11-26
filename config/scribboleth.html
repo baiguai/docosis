@@ -1941,7 +1941,7 @@
             }
 
             function collectMissingLinks() {
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
 
                 // Gather all node titles (case-insensitive)
                 const allTitles = new Set();
@@ -4479,7 +4479,7 @@
                     }
                 }
 
-                const noteRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const noteRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 while ((match = noteRegex.exec(content)) !== null) {
                     const full = match[0];
                     const start = match.index;
@@ -4507,7 +4507,7 @@
 
                 // Generic standalone links
                 const urlRegex = /\b(?:https?|file):\/\/[^\s]+/gi;
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
 
                 const foundLinks = [];
                 let match;
@@ -4632,7 +4632,7 @@
                     addTitle(match[1]);
                 }
 
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 while ((match = nodeLinkRegex.exec(text)) !== null) {
                     addTitle(match[1].trim().replace(/^_+|_+$/g, ''));
                 }
@@ -6905,7 +6905,7 @@
                 let content = editorArea.value;
 
                 // Regex that preserves whitespace and line breaks around inter-note links
-                const nodeLinkRegex = /(^|\s)_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(^|\s|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 content = content.replace(nodeLinkRegex, (match, leading, inner) => {
                     return (leading || "") + inner; // keep whitespace/line breaks, drop underscores
                 });

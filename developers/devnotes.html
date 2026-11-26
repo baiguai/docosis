@@ -1027,7 +1027,7 @@
           {
             "id": "886fe746",
             "title": "Main",
-            "content": "Main\n\nSignature: int main(int argc, char** argv)\nMethod: main\nReturns: int\nParameters:\n    argc int\n    argv char**\nCalled By: (none found)\n\n--------------------------------------------------------------------------------\n\nThe main entry point for the application.\n\n--------------------------------------------------------------------------------\n\nint main(int argc, char** argv)\n{\n    printMessage();\n}",
+            "content": "Main\n\nSignature: int main(int argc, char** argv)\nMethod: main\nReturns: int\nParameters:\n    argc int\n    argv char**\nCalls:\n    [printMessage]_Print Message_\nCalled By: (none found)\n\n--------------------------------------------------------------------------------\n\nThe main entry point for the application.\n\n--------------------------------------------------------------------------------\n\nint main(int argc, char** argv)\n{\n    printMessage();\n}",
             "children": [],
             "expanded": false
           }
@@ -1054,7 +1054,7 @@
               {
                 "id": "4b697832",
                 "title": "Print Message",
-                "content": "Print Message\n\nSignature: void printMessage()\nMethod: printMessage\nReturns: void\nCalled By:\n    [main](_Main_)\n\n--------------------------------------------------------------------------------\n\nPrints out a simple message.\n\n--------------------------------------------------------------------------------\n\nvoid printMessage()\n{\n    std::cout << \"This is a test project.\\n\";\n}",
+                "content": "Print Message\n\nSignature: void printMessage()\nMethod: printMessage\nReturns: void\nCalls: (none found)\nCalled By:\n    [main]_Main_\n\n--------------------------------------------------------------------------------\n\nPrints out a simple message.\n\n--------------------------------------------------------------------------------\n\nvoid printMessage()\n{\n    std::cout << \"This is a test project.\\n\";\n}",
                 "children": [],
                 "expanded": false
               }
@@ -2016,7 +2016,7 @@
             }
 
             function collectMissingLinks() {
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
 
                 // Gather all node titles (case-insensitive)
                 const allTitles = new Set();
@@ -4554,7 +4554,7 @@
                     }
                 }
 
-                const noteRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const noteRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 while ((match = noteRegex.exec(content)) !== null) {
                     const full = match[0];
                     const start = match.index;
@@ -4582,7 +4582,7 @@
 
                 // Generic standalone links
                 const urlRegex = /\b(?:https?|file):\/\/[^\s]+/gi;
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
 
                 const foundLinks = [];
                 let match;
@@ -4707,7 +4707,7 @@
                     addTitle(match[1]);
                 }
 
-                const nodeLinkRegex = /(?:^|\s|\()_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(?:^|\s|\(|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 while ((match = nodeLinkRegex.exec(text)) !== null) {
                     addTitle(match[1].trim().replace(/^_+|_+$/g, ''));
                 }
@@ -6980,7 +6980,7 @@
                 let content = editorArea.value;
 
                 // Regex that preserves whitespace and line breaks around inter-note links
-                const nodeLinkRegex = /(^|\s)_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
+                const nodeLinkRegex = /(^|\s|\])_([^_]|[^_].*?[^_])_(?=\s|[.,!?;:)]|$)/g;
                 content = content.replace(nodeLinkRegex, (match, leading, inner) => {
                     return (leading || "") + inner; // keep whitespace/line breaks, drop underscores
                 });
